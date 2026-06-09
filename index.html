@@ -177,6 +177,23 @@ h1,h2,h3{ font-family:var(--display); font-weight:500; line-height:1.12; }
   font-family:var(--hand); color:var(--terra-d);
   font-size:1.15rem; margin:0;
 }
+.hero-name{
+  font-weight:600;
+  background:linear-gradient(90deg, var(--rose), var(--terra), #E0A93E, var(--rose));
+  background-size:220% auto;
+  -webkit-background-clip:text; background-clip:text;
+  color:transparent; -webkit-text-fill-color:transparent;
+}
+.hero-emoji{ display:inline-block; }
+@media (prefers-reduced-motion: no-preference){
+  .hero-name{ animation:nameShimmer 5s linear infinite; }
+  .hero-emoji{ animation:emojiWiggle 3s ease-in-out infinite; transform-origin:bottom center; }
+}
+@keyframes nameShimmer{ to{ background-position:220% center; } }
+@keyframes emojiWiggle{
+  0%,100%{ transform:rotate(-7deg) scale(1); }
+  50%{ transform:rotate(7deg) scale(1.12); }
+}
 .hero .tagline{
   font-family:var(--display); font-style:italic; font-weight:400;
   color:var(--ink-mid); font-size:clamp(1.05rem,2.4vw,1.35rem);
@@ -561,7 +578,9 @@ const siteContent = {
 
   /* ---- the opening (hero) ---- */
   hero: {
-    kicker: "a creative sanctuary by Shaily",
+    kicker: "a creative sanctuary by",
+    name:   "Shaily",
+    emoji:  "🌸",
     intro:  "A quiet corner of the internet for slow, mindful art. Here, the journal page is a place to breathe — to colour outside the noise, notice the little things, and let the day soften."
   },
 
@@ -715,7 +734,8 @@ function render(){
   document.getElementById('footerLogo').innerHTML = logoHTML();
 
   // hero
-  document.getElementById('heroKicker').textContent = c.hero.kicker;
+  document.getElementById('heroKicker').innerHTML =
+    `${c.hero.kicker} <span class="hero-name">${c.hero.name}</span> <span class="hero-emoji">${c.hero.emoji}</span>`;
   document.getElementById('heroIntro').textContent = c.hero.intro;
 
   // about
